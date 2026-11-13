@@ -1,8 +1,3 @@
-"""Map-owned outdoor presets and the native dispatch metadata.
-
-Campaign assets are never edited. The native preset constructor selects these
-copies only when constructing an exterior map body.
-"""
 import struct
 import copy
 import json
@@ -14,28 +9,27 @@ RANGES = {'dunes': [(364,413)], 'highlands': [(4,51)],
           'travincal': [(653,658)], 'steppes': [(799,827)],
           'infernal': [(836,851)]}
 
-# A red portal lands on an orientation 10 special tile with main index 33: the
-# tile scanner (0x3e0ff9) files it as type 11, and the portal's spawn lookup
-# (0x3dac20, mode 11) accepts only that type. It uses the first special tile of
-# any kind if there is none, and no special tile at all gives a null room and a
-# crash. Abaddon's own entry rooms carry exactly this hidden tile (0x82100081).
+
+
+
+
+
 RED_PORTAL_LANDING = 33
 
-# These lair mouths carry slot 4, which Dry Hills maps do not link. Use a
-# same-size solid mesa (including its HD counterpart), not an orphan warp.
+
+
 CLOSED_PRESETS = {('dunes',390):398, ('dunes',391):398}
 
-# Travincal's way down is an object, not a tile: lvlwarp 64 is NoInteract, so
-# TravN's slot-0 warp only works under an OpenWarp object. Stock that is
-# MephistoDoor (Act 3 objpreset 111), unselectable until the Compelling Orb is
-# smashed with Khalim's Will. The map copy keeps the stairs where they stand as
-# UnfoldingStairRight (Act 3 objpreset 14, objects.txt 195): the same "sv"
-# stairs, clickable from the start, which is how Kurast's temples open their
-# NoInteract warps (lvlwarp 61). Every other campaign object is still removed.
+
+
+
+
+
+
+
 TRAVINCAL_STAIRS = dict(source=654, door=(2,111,74,83,0), warps=[(15,17,0)], stairs=14)
 
 def travincal_stairs(data,object_presets):
-    """The TravN object block for a map: the Durance stairs, opened."""
     spec=TRAVINCAL_STAIRS
     _,rows,_,_=objects(data)
     if struct.unpack_from('<I',data,12)[0]!=2 or list(warp_markers(data))!=spec['warps'] \
@@ -44,7 +38,7 @@ def travincal_stairs(data,object_presets):
     if object_presets.object_class(3,spec['door'][1])!='MephistoDoor' \
             or object_presets.object_class(3,spec['stairs'])!='UnfoldingStairRight':
         raise ValueError('Travincal stairs objpreset rows changed')
-    # sanitize stamps the copy Act 5, which moves objects into that namespace.
+
     return [(2,object_presets.remap(3,spec['stairs']),*spec['door'][2:])]
 
 def warp_markers(data):
@@ -57,12 +51,6 @@ def warp_markers(data):
                 yield i%width,i//width,(cell>>20)&63
 
 def close_travincal_passage(data):
-    """Extend the existing southern terrace across the Kurast causeway.
-
-    Local row 24 is the courtyard edge, before the descending stairs. Main
-    index 31/orientation 2 resolves to Kurast/Terraces.dt1, including native
-    collision and legacy graphics. The paired HD edit extends that same wall.
-    """
     result=bytearray(data)
     width,height,layers,floors,count=layer_info(result)
     if (width,height)!=(33,33):raise ValueError('Travincal passage dimensions changed')
@@ -75,8 +63,8 @@ def close_travincal_passage(data):
         at=4*(24*width+x)
         struct.pack_into('<I',result,cells+at,0x1f00081)
         struct.pack_into('<I',result,types+at,2)
-        # Also prohibit landing in the closed doorway. Do not change DT1s
-        # shared with campaign areas or the interior entry marker at (15,20).
+
+
         for layer in range(count):
             offset=floors+layer*width*height*4+at
             value=struct.unpack_from('<I',result,offset)[0]
@@ -85,8 +73,8 @@ def close_travincal_passage(data):
 
 def close_travincal_hd(data):
     scene=json.loads(data)
-    # Authored adjacent segments: preserve model/physics/orientation/height.
-    # Each segment is ten HD units (one DS1 tile) long.
+
+
     sources={4218006683:(143.0,250.0),2143631721:(143.5,249.5)}
     ids={e['id'] for e in scene['entities']}
     for source,(x,z) in sources.items():
@@ -119,7 +107,7 @@ def layer_info(data):
     if not 10<=version<=18 or width>512 or height>512 or files>100:raise ValueError('Unsupported exterior DS1 header')
     offset=24
     for _ in range(files): offset=data.index(b'\0',offset)+1
-    if 9<=version<=13:offset+=8 # legacy editor dimensions, unused by the loader
+    if 9<=version<=13:offset+=8
     walls=struct.unpack_from('<I',data,offset)[0];offset+=4
     floors=1
     if version>=16:floors=struct.unpack_from('<I',data,offset)[0];offset+=4
@@ -141,7 +129,7 @@ def sanitize(data, *, exit_slot=None, marker=None, keep=()):
             for i in range(width*height):
                 cell=struct.unpack_from('<I',result,cells+4*i)[0]
                 kind=struct.unpack_from('<I',result,types+4*i)[0]&255
-                # Orientation 10/11 also serves decorative indexes >=8.
+
                 if kind in (10,11) and ((cell>>20)&63)<8:
                     struct.pack_into('<I',result,cells+4*i,(cell&~0x03f00000)|(exit_slot<<20));found+=1
         if not found: raise ValueError('Entrance preset has no warp markers')
@@ -151,9 +139,9 @@ def sanitize(data, *, exit_slot=None, marker=None, keep=()):
         for cells,types in layers:
             at=(y*width+x)*4
             if struct.unpack_from('<I',result,cells+at)[0]==0:
-                # Synthetic landing markers have no matching DT1 wall tile.
-                # Bit 31 selects the engine's hidden-warp path; leaving it
-                # clear creates a tile with null art and can crash rendering.
+
+
+
                 struct.pack_into('<I',result,cells+at,0x80000081|(slot<<20))
                 struct.pack_into('<I',result,types+at,10)
                 break
@@ -177,8 +165,8 @@ def generate(api,plans,presets,runtime,levels,object_presets):
             files=int(row[presets.col('Files')] or 0)
             if not files:raise ValueError(f'Exterior preset {source} has no files')
             if keep_files:
-                # One Vis slot names one lvlwarp. Keep only the leading files
-                # whose warp tile matches it (e.g. a left-facing cave only).
+
+
                 if not 0<keep_files<=files:raise ValueError(f'Exterior preset {source} has {files} files')
                 for file_index in range(keep_files+1,files+1):row[presets.col(f'File{file_index}')]='0'
                 files=keep_files;row[presets.col('Files')]=str(files)
@@ -190,8 +178,8 @@ def generate(api,plans,presets,runtime,levels,object_presets):
                 data=path.read_bytes();marker=None
                 if key=='travincal' and source==657: marker=(15,20,6)
                 if landing_warp is not None:
-                    # Where these stairs put a player arriving by them: the
-                    # warp tile plus the lvlwarp's ExitWalk (in subtiles).
+
+
                     (wx,wy,_),=warp_markers(data)
                     walk=warps.find(warps.col('Id'),str(landing_warp))
                     marker=((wx*5+int(walk[warps.col('ExitWalkX')]))//5,
@@ -218,16 +206,16 @@ def generate(api,plans,presets,runtime,levels,object_presets):
         for lo,hi in RANGES[key]:
             for source in range(lo,hi+1):
                 if int(stock[source][presets.col('Files')] or 0)>0:
-                    # The plugin's arrival placement must know which pieces
-                    # the stock initializer can leave with a live warp.
+
+
                     target=clone(source)
                     mappings.append((theme_index,source,target,int(target in warped)))
         if theme.get('exit_preset'):exit_id=clone(theme['exit_preset'],'exit',7,keep_files=theme.get('exit_files'))
         if theme.get('entry_preset'):
-            # Outdoor bodies: a stock piece, built from this theme's private
-            # copy, that the plugin places as the arrival before the exit.
-            # A red portal lands in the first live-warp room of the room
-            # list, so every warp it carries must lead back to the body.
+
+
+
+
             entry_id=theme['entry_preset']
             if not theme.get('exit_preset') or not any(lo<=entry_id<=hi for lo,hi in RANGES[key]):
                 raise ValueError(f'{key}: entry_preset {entry_id} needs an exit_preset and a private copy')
@@ -240,10 +228,10 @@ def generate(api,plans,presets,runtime,levels,object_presets):
                 if not slots or any(int(body[levels.col(f'Vis{s}')] or 0)!=p['body_id'] for s in slots):
                     raise ValueError(f'{key}: entry_preset {entry_id} warps {sorted(slots)} must link to body {p["body_id"]}')
         if theme.get('stairs_preset'):
-            # Maze bodies: the plugin places one stairs room of each copy
-            # after the native maze has grown. River of Flame's stairs room
-            # has no special tile, so the entry copy gets the red portal
-            # landing; the exit copy must not, or the portal may land there.
+
+
+
+
             (entry_slot,entry_warp),((exit_slot,_),)=theme['body_entry'],theme['body_exits']
             entry_id=clone(theme['stairs_preset'],'entry',entry_slot,entry_warp)
             exit_id=clone(theme['stairs_preset'],'exit',exit_slot)
@@ -254,11 +242,11 @@ def generate(api,plans,presets,runtime,levels,object_presets):
             body_type=int(body[levels.col('LevelType')])
             if body_type!=int(theme.get('body_level_type') or levels.find(levels.col('Id'),str(theme['body_template']))[levels.col('LevelType')]):
                 raise ValueError(f"{key}: body {p['body_id']} LevelType {body_type} is not the theme's")
-            # The plugin writes this rectangle when the engine leaves the
-            # level unsized, so it must be the body's own levels.txt cell (the
-            # one check_world_layout and MapWorldRects use). A separate
-            # placement here once put bodies on Crystalline Passage,
-            # Nihlathak's Temple and the Throne of Destruction.
+
+
+
+
+
             x,y=int(body[levels.col('OffsetX')]),int(body[levels.col('OffsetY')])
             if (x,y)!=api.world_offset(p,False) or x%4 or y%4:
                 raise ValueError(f"{key}: body {p['body_id']} offset {x},{y} is not its 4-aligned world cell")
@@ -269,12 +257,6 @@ def generate(api,plans,presets,runtime,levels,object_presets):
     return assets
 
 def maze_presets(plans,presets,levels):
-    """Per-body lvlprest swaps for maze themes (THEMES body_presets).
-
-    The same construction hook applies them. A swap may only exchange rooms
-    the maze routine could have placed in either spot: identical rows apart
-    from name, Def and files, so size, door side, Scan and Dt1Mask agree.
-    """
     swaps=[]
     stock={r[presets.col('Def')]:r for r in presets.rows if r[presets.col('Def')]}
     ignored={presets.col(c) for c in ('Name','Def',*(f'File{i}' for i in range(1,7)))}

@@ -61,42 +61,6 @@ def build():
             writer=csv.DictWriter(f,fieldnames=h,delimiter='\t',lineterminator='\r\n')
             writer.writeheader();writer.writerows(rows)
     (W/'changes.json').write_text(json.dumps(changes,indent=2))
-    (W/'package/INSTRUKCJA.txt').write_text('''Mapy — ograniczenie dropu map i Vizjerei Prism
-
-Zmiany:
-- Losowe mapy z potworów w mapach T1-T6: o75% rzadsze.
-- Gwarantowana jedna mapa z Wardena pozostaje bez zmian.
-- Vizjerei Prism: o50% rzadszy we wszystkich mapowych źródłach, również
-  w losowaniu currency Wardena i w bonusie Gilded.
-- Szansa na Corrupted Worldstone Shard, zwykły loot, pozostałe materiały,
-  jakość przedmiotów i9 losowań zwykłego lootu Wardena zachowane.
-- Heraldzi, Baal i potwory poza mapami mają dotychczasowe szanse.
-
-Szacowany wynik: przy wcześniejszych6-8 mapach łącznie, w tym jednej z Wardena,
-średnia po zmianie wynosi około2,25-2,75. To cel balansu oparty o Twoje wyniki,
-nie limit ani gwarancja w pojedynczej rozgrywce. Density i liczba graczy nadal
-wpływają na liczbę łupów. Rozkład tierów i lokacji losowych map pozostaje taki sam.
-
-Instalacja:
-1. Zamknij grę i skopiuj folder mods do katalogu gry, zastępując dwa pliki
-   treasureclassex.txt (główny oraz w podfolderze base).
-2. W konsoli Loadera wykonaj:
-
-   d2rl compile VanillaDeluxe
-
-3. Po zakończeniu kompilacji całkowicie zamknij grę, uruchom ją ponownie
-   i utwórz nową rozgrywkę.
-4. Na LAN zainstaluj i skompiluj tę samą paczkę na obu komputerach.
-
-Paczka zawiera tylko tabele dropów. Nie podmienia MonStats, HP, modeli,
-Cubemain, Properties ani DLL. Zachowuje recepturę3 odłamki + niebieska mapa,
-naprawę Essence i poprzednie poprawki map. Nie instaluj na nią starszego
-treasureclassex.txt, ponieważ przywróci poprzednie szanse.
-
-Weryfikacja plików i obliczenia prawdopodobieństw wykonane lokalnie.
-Nie uruchomiono gry ani kompilatora d2rl. Średnią liczbę map oceń po kilku
-pełnych przejściach przy podobnym zaludnieniu, nie po jednym dropie.
-''',encoding='utf-8')
     print(json.dumps({'banks':counts,'edited_existing_rows_per_bank':13,'new_gates_per_bank':5}))
 
 if __name__=='__main__':build()

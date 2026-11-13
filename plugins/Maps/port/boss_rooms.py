@@ -1,8 +1,3 @@
-"""Clone shipped DS1 rooms and replace their monster population with a map boss.
-
-Only the object block changes; tiles, warps and trailing substitution/NPC
-records remain byte-for-byte intact. Source Labyrinth files are never written.
-"""
 import os
 import shutil
 import struct
@@ -33,23 +28,15 @@ def objects(data):
 
 OBJECT_TAG = "rmap_object"
 
-# Labyrinth hub furniture that a cloned arena must not keep: a stash has no
-# place in a boss room, and a waypoint object in a level without a waypoint
-# row is broken.
+
+
+
 ARENA_EXCLUDED_OBJECTS = {"Bank", "WaypointAct2"}
 
 
 class ObjectPresets:
-    """objpreset.txt: DS1 object ids are indices into one act's rows. A cloned
-    room is stamped Act 5 so its Warden resolves through the Act 5 MonPreset
-    namespace, which also moves every object record into the Act 5 object
-    namespace: Heart.ds1's Act 4 Hellfire torches became Act 5 Standards and
-    its light shafts became Banks, which put stashes in the Worldstone arena.
-    Each object is therefore re-pointed at the Act 5 row of the same class,
-    appended (and tagged for regeneration) when Act 5 has none."""
 
     def __init__(self, api, table=None):
-        """table: the one generate() already built, to append to it."""
         self.table = table or api.Table(api.EXCEL / "objpreset.txt")
         self.api = api
         self.index, self.act, self.cls, self.notes = (
@@ -65,8 +52,6 @@ class ObjectPresets:
         return cls
 
     def remap(self, source_act, object_id):
-        """Act 5 index for the object `object_id` of `source_act` (1-based),
-        or None when the arena must not keep it."""
         cls = self.object_class(source_act, object_id)
         if cls in ARENA_EXCLUDED_OBJECTS:
             return None
@@ -88,8 +73,8 @@ class ObjectPresets:
 def clone(data, preset, presets=None):
     offset, rows, width, height = objects(data)
     points = [(r[2], r[3]) for r in rows if r[0] == 1]
-    # Existing monster locations are known walkable positions. NihlS has no
-    # monster records; its centre is the original Nihlathak platform.
+
+
     x, y = min(points, key=lambda p: (p[0] - width * 2.5)**2 + (p[1] - height * 2.5)**2) if points else (211, 211)
     if not (0 <= x <= width * 5 and 0 <= y <= height * 5):
         raise ValueError("Boss outside DS1")
@@ -106,7 +91,7 @@ def clone(data, preset, presets=None):
         kept.append(r)
     kept.append((1, preset, x, y, 0))
     header = bytearray(data[:offset])
-    struct.pack_into("<I", header, 12, 4)  # Act 5 MonPreset namespace
+    struct.pack_into("<I", header, 12, 4)
     block = struct.pack("<I", len(kept)) + b"".join(struct.pack("<5I", *r) for r in kept)
     return bytes(header) + block + data[offset + 4 + len(rows) * 20:]
 
@@ -119,8 +104,6 @@ def arena_spec(theme, tier):
 
 
 def arena_bytes(repo, theme, tier):
-    """The DS1 and HD preset JSON to clone for one map, as bytes. A
-    "custom:<name>" arena is built by arenas.py rather than read from disk."""
     spec = arena_spec(theme, tier)
     if spec.startswith("custom:"):
         import arenas
@@ -130,7 +113,6 @@ def arena_bytes(repo, theme, tier):
 
 
 def arena_source(repo, theme, tier):
-    """The on-disk DS1 and HD preset JSON to clone for one map."""
     spec = arena_spec(theme, tier)
     if spec.startswith("custom:"):
         raise ValueError(f"{spec} is built in memory; use arena_bytes")
@@ -145,8 +127,6 @@ def arena_source(repo, theme, tier):
 
 
 def _stock(rel):
-    """Return a committed copy of an unmodified D2R file, fetching it from the
-    extracted game data the first time it is referenced."""
     cached = STOCK_CACHE / rel
     if not cached.exists():
         source = Path(os.environ.get("D2R_STOCK_DATA", cfg.STOCK_DATA)) / rel
@@ -159,20 +139,19 @@ def _stock(rel):
     return cached
 
 
-# automap.txt cell drawn for a Warden. D2R draws any monster whose MonStats2
-# row carries an automapCel (the Act 5 barricade tower is the stock example),
-# so this is the only data needed for a boss marker. 305 is the Compelling Orb
-# icon: a plain dot until dedicated skull art is added to the automap sprite.
+
+
+
+
 BOSS_AUTOMAP_CEL = "305"
 
-# Cast by the Warden in death mode (Sk<n>mode = DT), so its corpse opens a town
-# portal. This is the stock scroll skill (srvdofunc 113); a monster caster has
-# no player portal list, so this must be confirmed live before it is relied on.
+
+
+
 BOSS_DEATH_SKILL = "Book of Townportal"
 
 
 def add_skill(api, monsters, row, skill, mode, level=1):
-    """Put `skill` in the first free Skill slot of `row`."""
     for slot in range(1, 9):
         if not row[monsters.col(f"Skill{slot}")]:
             api.set_cells(row, monsters, {
@@ -183,19 +162,14 @@ def add_skill(api, monsters, row, skill, mode, level=1):
 
 
 def add_death_skill(api, monsters, row, skill):
-    """Put `skill` in the first free Skill slot of `row`, cast on death."""
     add_skill(api, monsters, row, skill, "DT")
 
 
 def warden_accuracy(tier):
-    """Attack rating multiplier for a Warden of `tier`."""
     return cfg.WARDEN_ACCURACY_BASE + cfg.WARDEN_ACCURACY_PER_TIER * (tier - 1)
 
 
 def apply_kit(api, monsters, boss, p):
-    """Give a Warden its theme kit from cfg.WARDENS. The aura and procs live
-    in the Warden's own monprop row (see endgame.py) and the escort in
-    superuniques.txt; this handles everything on the monstats row itself."""
     kit = cfg.WARDENS[p["theme"]["key"]]
     tier, code = p["tier"], p["item_code"]
     step = tier - 1
@@ -245,8 +219,6 @@ def apply_kit(api, monsters, boss, p):
 
 
 def escort_count(p):
-    """Superunique MinGrp/MaxGrp for a Warden: the theme's escort plus the
-    per-tier step and the tier 6 cliff."""
     _, _, lo, hi = cfg.WARDENS[p["theme"]["key"]]["escort"]
     bonus = cfg.WARDEN_ESCORT_PER_TIER * (p["tier"] - 1)
     if p["tier"] == 6:
@@ -258,13 +230,13 @@ def generate(api, plans, levels, presets, monsters):
     places = api.Table(api.EXCEL / "monpreset.txt")
     places.drop_tagged(places.col("Place"), "rmap_")
     next_slot = sum(r[places.col("Act")] == "5" for r in places.head())
-    # The Warden is placed as a superunique so its escort spawns with it.
+
     uniques = api.Table(api.EXCEL / "superuniques.txt")
     uniques.drop_tagged(uniques.col("Superunique"), "rmap_")
     next_hc = 1 + max(int(r[uniques.col("hcIdx")] or 0) for r in uniques.head())
-    # Map monsters share their source monster's MonStats2 row. A Warden gets
-    # its own copy so the automap marker is not inherited by every monster
-    # of that archetype in the rest of the game.
+
+
+
     stats2 = api.Table(api.EXCEL / "monstats2.txt")
     stats2.drop_tagged(stats2.col("Id"), "rmap_")
     object_presets = ObjectPresets(api)
@@ -311,26 +283,26 @@ def generate(api, plans, levels, presets, monsters):
         ds1, hd = arena_bytes(api.REPO, p["theme"], p["tier"])
         target = f"Maps/{code}_boss.ds1"
         assets[api.REPO / "data/global/tiles" / target] = clone(ds1, next_slot, object_presets)
-        # D2R resolves the HD scene by the DS1 path, so a cloned room needs its
-        # own hd/env/preset entry or it renders without HD geometry. The JSON
-        # only references stock terrain assets by absolute path; a verbatim
-        # copy is the correct scene for the copied tiles.
+
+
+
+
         assets[api.REPO / "data/hd/env/preset/maps" / f"{code}_boss.json"] = hd
         if arena_spec(p["theme"], p["tier"]).startswith("custom:"):
-            # The template's size belongs to the room it was made for. Stock
-            # preset levels use the DS1 header's size (one less than its
-            # cell count), e.g. Duriel's Lair 32x47.
+
+
+
             width, height = struct.unpack_from("<2I", ds1, 4)
             api.set_cells(level, levels, {f"Size{axis}{diff}": str(size)
                                           for axis, size in (("X", width), ("Y", height))
                                           for diff in ("", "(N)", "(H)")})
-            # A template preset may pin its own room's size (the ice pool
-            # rooms say 32x32); 0 means "the DS1's", which stays as it is.
+
+
             if preset[presets.col("SizeX")] not in ("", "0"):
                 api.set_cells(preset, presets, {"SizeX": str(width), "SizeY": str(height)})
-            # KillEdge drops a preset's last row and column (stock rooms leave
-            # them empty to share with a neighbour); a custom room's front
-            # walls live there.
+
+
+
             api.set_cells(preset, presets, {"KillEdge": "0"})
             import arenas
             name = arena_spec(p["theme"], p["tier"])[len("custom:"):]
