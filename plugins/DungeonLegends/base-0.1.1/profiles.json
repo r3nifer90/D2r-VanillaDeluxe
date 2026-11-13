@@ -1,0 +1,1990 @@
+{
+  "author": "r3ni",
+  "version": "0.1.0-beta",
+  "profiles": [
+    {
+      "index": 0,
+      "id": "izual",
+      "name": "Veyrath, the Fallen Seraph",
+      "source": "izual",
+      "source_class": 256,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Zeal",
+          "original_id": 106,
+          "private_id": 437,
+          "kind": 4,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "37",
+          "srvdofunc": "13",
+          "srvmissile": ""
+        },
+        {
+          "name": "Fanaticism",
+          "original_id": 122,
+          "private_id": 438,
+          "kind": 7,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "65",
+          "srvmissile": ""
+        },
+        {
+          "name": "Charge",
+          "original_id": 107,
+          "private_id": 439,
+          "kind": 3,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "31",
+          "srvdofunc": "67",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Veyrath breaks his oath; a fallen seraph descends into hatred.",
+      "first_class": 1779,
+      "class_capacity": 16,
+      "superunique_index": 100,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 1,
+      "id": "nihlathak",
+      "name": "Mordrath, Warden of Bone",
+      "source": "nihlathakboss",
+      "source_class": 526,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Bone Armor",
+          "original_id": 68,
+          "private_id": 440,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "18",
+          "srvmissile": ""
+        },
+        {
+          "name": "Bone Prison",
+          "original_id": 88,
+          "private_id": 441,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "bonewall",
+          "srvstfunc": "19",
+          "srvdofunc": "62",
+          "srvmissile": ""
+        },
+        {
+          "name": "Teeth",
+          "original_id": 67,
+          "private_id": 442,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "8",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Mordrath stirs beneath the monastery; the dead will not rest.",
+      "first_class": 1795,
+      "class_capacity": 16,
+      "superunique_index": 101,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 2,
+      "id": "blood_raven",
+      "name": "Vespara, the Crimson Huntress",
+      "source": "bloodraven",
+      "source_class": 267,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Strafe",
+          "original_id": 26,
+          "private_id": 443,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "8",
+          "srvdofunc": "12",
+          "srvmissile": ""
+        },
+        {
+          "name": "Valkyrie",
+          "original_id": 32,
+          "private_id": 444,
+          "kind": 5,
+          "corpse_required": false,
+          "summon": "valkyrie",
+          "srvstfunc": "",
+          "srvdofunc": "16",
+          "srvmissile": ""
+        },
+        {
+          "name": "Slow Missiles",
+          "original_id": 17,
+          "private_id": 445,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "6",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Vespara draws her bow; the crimson hunt has begun.",
+      "first_class": 1811,
+      "class_capacity": 16,
+      "superunique_index": 102,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 3,
+      "id": "griswold",
+      "name": "Gorath, the Forsaken Smith",
+      "source": "griswold",
+      "source_class": 365,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Bash",
+          "original_id": 126,
+          "private_id": 446,
+          "kind": 4,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "32",
+          "srvdofunc": "2",
+          "srvmissile": ""
+        },
+        {
+          "name": "Leap",
+          "original_id": 132,
+          "private_id": 447,
+          "kind": 3,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "40",
+          "srvdofunc": "77",
+          "srvmissile": ""
+        },
+        {
+          "name": "War Cry",
+          "original_id": 154,
+          "private_id": 448,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "68",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Gorath rises from the dust; his hammer remembers every betrayal.",
+      "first_class": 1827,
+      "class_capacity": 16,
+      "superunique_index": 103,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 4,
+      "id": "smith",
+      "name": "Kharvok, the Ashen Butcher",
+      "source": "smith",
+      "source_class": 402,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Berserk",
+          "original_id": 152,
+          "private_id": 449,
+          "kind": 4,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "39",
+          "srvdofunc": "2",
+          "srvmissile": ""
+        },
+        {
+          "name": "Frenzy",
+          "original_id": 147,
+          "private_id": 450,
+          "kind": 4,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "67",
+          "srvdofunc": "9",
+          "srvmissile": ""
+        },
+        {
+          "name": "Battle Cry",
+          "original_id": 146,
+          "private_id": 451,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "68",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Kharvok leaves the furnace; the ashes demand fresh blood.",
+      "first_class": 1843,
+      "class_capacity": 16,
+      "superunique_index": 104,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 5,
+      "id": "radament",
+      "name": "Azharak, Keeper of the Dead",
+      "source": "radament",
+      "source_class": 229,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Raise Skeleton",
+          "original_id": 70,
+          "private_id": 452,
+          "kind": 6,
+          "corpse_required": true,
+          "summon": "necroskeleton",
+          "srvstfunc": "15",
+          "srvdofunc": "31",
+          "srvmissile": ""
+        },
+        {
+          "name": "Raise Skeletal Mage",
+          "original_id": 80,
+          "private_id": 453,
+          "kind": 6,
+          "corpse_required": true,
+          "summon": "necromage",
+          "srvstfunc": "15",
+          "srvdofunc": "31",
+          "srvmissile": ""
+        },
+        {
+          "name": "Bone Spirit",
+          "original_id": 93,
+          "private_id": 454,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "10",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Azharak opens the sealed tomb; a thousand bones answer his call.",
+      "first_class": 1859,
+      "class_capacity": 16,
+      "superunique_index": 105,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 6,
+      "id": "fire_eye",
+      "name": "Zharun, the Venomblade",
+      "source": "sandraider3",
+      "source_class": 31,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Fade",
+          "original_id": 267,
+          "private_id": 455,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "18",
+          "srvmissile": ""
+        },
+        {
+          "name": "Burst of Speed",
+          "original_id": 258,
+          "private_id": 456,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "18",
+          "srvmissile": ""
+        },
+        {
+          "name": "Venom",
+          "original_id": 278,
+          "private_id": 457,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "18",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Zharun slips through the jungle; venom gleams upon his blades.",
+      "first_class": 1875,
+      "class_capacity": 16,
+      "superunique_index": 106,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 7,
+      "id": "summoner",
+      "name": "Malachar, the Starless Seer",
+      "source": "summoner",
+      "source_class": 250,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Armageddon",
+          "original_id": 249,
+          "private_id": 458,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "124",
+          "srvmissile": ""
+        },
+        {
+          "name": "Spirit of Barbs",
+          "original_id": 246,
+          "private_id": 459,
+          "kind": 5,
+          "corpse_required": false,
+          "summon": "spiritofbarbs",
+          "srvstfunc": "",
+          "srvdofunc": "119",
+          "srvmissile": ""
+        },
+        {
+          "name": "Summon Spirit Wolf",
+          "original_id": 227,
+          "private_id": 460,
+          "kind": 5,
+          "corpse_required": false,
+          "summon": "spiritwolf",
+          "srvstfunc": "",
+          "srvdofunc": "119",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Malachar tears open the starless sky; ruin follows his prophecy.",
+      "first_class": 1891,
+      "class_capacity": 16,
+      "superunique_index": 107,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 8,
+      "id": "stormtree",
+      "name": "Thornagar, the Withered Heart",
+      "source": "thornhulk3",
+      "source_class": 129,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Hurricane",
+          "original_id": 250,
+          "private_id": 461,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "124",
+          "srvmissile": ""
+        },
+        {
+          "name": "Molten Boulder",
+          "original_id": 229,
+          "private_id": 462,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "",
+          "srvmissile": "moltenboulderemerge"
+        },
+        {
+          "name": "Oak Sage",
+          "original_id": 226,
+          "private_id": 463,
+          "kind": 5,
+          "corpse_required": false,
+          "summon": "oaksage",
+          "srvstfunc": "",
+          "srvdofunc": "119",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Thornagar wakes among the withered roots; the storm has found a heart.",
+      "first_class": 1907,
+      "class_capacity": 16,
+      "superunique_index": 108,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 9,
+      "id": "lord_de_seis",
+      "name": "Vaelthos, the Riftbinder",
+      "source": "doomknight3",
+      "source_class": 312,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Miasma Bolt",
+          "original_id": 395,
+          "private_id": 464,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "",
+          "srvmissile": "miasmabolt"
+        },
+        {
+          "name": "Flame Wave",
+          "original_id": 398,
+          "private_id": 465,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "156",
+          "srvmissile": ""
+        },
+        {
+          "name": "Blade Warp",
+          "original_id": 390,
+          "private_id": 466,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "166",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Vaelthos unseals the rift; flame and miasma cross the veil.",
+      "first_class": 1923,
+      "class_capacity": 16,
+      "superunique_index": 109,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 10,
+      "id": "hephasto",
+      "name": "Vorgath, the Infernal Forger",
+      "source": "hephasto",
+      "source_class": 409,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Ring of Fire",
+          "original_id": 394,
+          "private_id": 467,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "154",
+          "srvmissile": ""
+        },
+        {
+          "name": "Summon Tainted",
+          "original_id": 376,
+          "private_id": 468,
+          "kind": 5,
+          "corpse_required": false,
+          "summon": "warbighead",
+          "srvstfunc": "",
+          "srvdofunc": "56",
+          "srvmissile": ""
+        },
+        {
+          "name": "Miasma Chains",
+          "original_id": 399,
+          "private_id": 469,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "167",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Vorgath strikes the infernal anvil; burning chains reach for Sanctuary.",
+      "first_class": 1939,
+      "class_capacity": 16,
+      "superunique_index": 110,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 11,
+      "id": "infector_of_souls",
+      "name": "Nharzul, the Plague Maw",
+      "source": "megademon3",
+      "source_class": 362,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Poison Nova",
+          "original_id": 92,
+          "private_id": 470,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "22",
+          "srvmissile": ""
+        },
+        {
+          "name": "Poison Explosion",
+          "original_id": 83,
+          "private_id": 471,
+          "kind": 2,
+          "corpse_required": true,
+          "summon": "",
+          "srvstfunc": "17",
+          "srvdofunc": "63",
+          "srvmissile": ""
+        },
+        {
+          "name": "Lower Resist",
+          "original_id": 91,
+          "private_id": 472,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "30",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Nharzul exhales beneath Kurast; the air itself begins to rot.",
+      "first_class": 1955,
+      "class_capacity": 16,
+      "superunique_index": 111,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 12,
+      "id": "shenk",
+      "name": "Kargor, the Siege Tyrant",
+      "source": "overseer1",
+      "source_class": 479,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Might",
+          "original_id": 98,
+          "private_id": 473,
+          "kind": 7,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "65",
+          "srvmissile": ""
+        },
+        {
+          "name": "Blessed Hammer",
+          "original_id": 112,
+          "private_id": 474,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "73",
+          "srvmissile": ""
+        },
+        {
+          "name": "Summon Goatman",
+          "original_id": 373,
+          "private_id": 475,
+          "kind": 5,
+          "corpse_required": false,
+          "summon": "wargoatman",
+          "srvstfunc": "",
+          "srvdofunc": "56",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Kargor raises the siege standard; his hammers will shatter your refuge.",
+      "first_class": 1971,
+      "class_capacity": 16,
+      "superunique_index": 112,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 13,
+      "id": "sharptooth_slayer",
+      "name": "Drazhul, the Ashen Shepherd",
+      "source": "overseer3",
+      "source_class": 481,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Summon Defiler",
+          "original_id": 377,
+          "private_id": 476,
+          "kind": 5,
+          "corpse_required": false,
+          "summon": "warputriddefiler",
+          "srvstfunc": "",
+          "srvdofunc": "56",
+          "srvmissile": ""
+        },
+        {
+          "name": "Holy Fire",
+          "original_id": 102,
+          "private_id": 477,
+          "kind": 7,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "66",
+          "srvmissile": ""
+        },
+        {
+          "name": "Armageddon",
+          "original_id": 249,
+          "private_id": 478,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "124",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Drazhul calls his flock from the embers; the mountain will burn.",
+      "first_class": 1987,
+      "class_capacity": 16,
+      "superunique_index": 113,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 14,
+      "id": "frozenstein",
+      "name": "Hrimgor, the Frozen Colossus",
+      "source": "snowyeti4",
+      "source_class": 449,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Chilling Armor",
+          "original_id": 60,
+          "private_id": 479,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "18",
+          "srvmissile": ""
+        },
+        {
+          "name": "Frozen Orb",
+          "original_id": 64,
+          "private_id": 480,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "",
+          "srvmissile": "frozenorb"
+        },
+        {
+          "name": "Glacial Spike",
+          "original_id": 55,
+          "private_id": 481,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "",
+          "srvmissile": "glacialspike"
+        }
+      ],
+      "announcement": "Hrimgor breaks the ancient ice; winter has taken flesh.",
+      "first_class": 2003,
+      "class_capacity": 16,
+      "superunique_index": 114,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 15,
+      "id": "thresh_socket",
+      "name": "Kharzug, the Molten Breaker",
+      "source": "siegebeast3",
+      "source_class": 443,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Volcano",
+          "original_id": 244,
+          "private_id": 482,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "123",
+          "srvmissile": ""
+        },
+        {
+          "name": "Firestorm",
+          "original_id": 225,
+          "private_id": 483,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "117",
+          "srvmissile": ""
+        },
+        {
+          "name": "Fissure",
+          "original_id": 234,
+          "private_id": 484,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "28",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Kharzug shakes the frozen earth; molten blood rises from its wounds.",
+      "first_class": 2019,
+      "class_capacity": 16,
+      "superunique_index": 115,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 16,
+      "id": "pindleskin",
+      "name": "Valdrak, the Oathless Revenant",
+      "source": "reanimatedhorde5",
+      "source_class": 440,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Raven",
+          "original_id": 221,
+          "private_id": 485,
+          "kind": 5,
+          "corpse_required": false,
+          "summon": "druidhawk",
+          "srvstfunc": "",
+          "srvdofunc": "114",
+          "srvmissile": ""
+        },
+        {
+          "name": "Charge",
+          "original_id": 107,
+          "private_id": 486,
+          "kind": 3,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "31",
+          "srvdofunc": "67",
+          "srvmissile": ""
+        },
+        {
+          "name": "Vengeance",
+          "original_id": 111,
+          "private_id": 487,
+          "kind": 4,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "35",
+          "srvdofunc": "2",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Valdrak returns without an oath; black wings mark the road to vengeance.",
+      "first_class": 2035,
+      "class_capacity": 16,
+      "superunique_index": 116,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 17,
+      "id": "snapchip_shatter",
+      "name": "Skarnath, the Rimeborn",
+      "source": "frozenhorror1",
+      "source_class": 501,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Shiver Armor",
+          "original_id": 50,
+          "private_id": 488,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "18",
+          "srvmissile": ""
+        },
+        {
+          "name": "Blizzard",
+          "original_id": 59,
+          "private_id": 489,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "28",
+          "srvmissile": ""
+        },
+        {
+          "name": "Ice Blast",
+          "original_id": 45,
+          "private_id": 490,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "",
+          "srvmissile": "iceblast"
+        }
+      ],
+      "announcement": "Skarnath gathers the killing frost; every breath becomes a blade.",
+      "first_class": 2051,
+      "class_capacity": 16,
+      "superunique_index": 117,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 18,
+      "id": "lister_the_tormentor",
+      "name": "Rhazgor, the Tempest Maw",
+      "source": "baalminion1",
+      "source_class": 571,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Cyclone Armor",
+          "original_id": 235,
+          "private_id": 491,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "18",
+          "srvmissile": ""
+        },
+        {
+          "name": "Tornado",
+          "original_id": 245,
+          "private_id": 492,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "",
+          "srvdofunc": "118",
+          "srvmissile": ""
+        },
+        {
+          "name": "Carrion Vine",
+          "original_id": 231,
+          "private_id": 493,
+          "kind": 5,
+          "corpse_required": false,
+          "summon": "cycleoflife",
+          "srvstfunc": "",
+          "srvdofunc": "115",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Rhazgor howls before the Worldstone; the tempest hungers for the living.",
+      "first_class": 2067,
+      "class_capacity": 16,
+      "superunique_index": 118,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    },
+    {
+      "index": 19,
+      "id": "countess",
+      "name": "Velisara, the Blade Matron",
+      "source": "corruptrogue3",
+      "source_class": 45,
+      "areas": [
+        {
+          "id": 146,
+          "name": "Undiscovered Dungeon1"
+        },
+        {
+          "id": 150,
+          "name": "Undiscovered Dungeon2"
+        },
+        {
+          "id": 151,
+          "name": "Undiscovered Dungeon3"
+        },
+        {
+          "id": 153,
+          "name": "Forsaken Throne"
+        },
+        {
+          "id": 154,
+          "name": "Forsaken Temple1"
+        },
+        {
+          "id": 155,
+          "name": "Forsaken Temple2"
+        },
+        {
+          "id": 156,
+          "name": "Forsaken Temple3"
+        },
+        {
+          "id": 159,
+          "name": "Scary Hole"
+        },
+        {
+          "id": 161,
+          "name": "TForsaken Throne"
+        },
+        {
+          "id": 162,
+          "name": "TForsaken Temple1"
+        },
+        {
+          "id": 163,
+          "name": "TForsaken Temple2"
+        },
+        {
+          "id": 164,
+          "name": "TForsaken Temple3"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Lightning Sentry",
+          "original_id": 271,
+          "private_id": 494,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "lightningsentry",
+          "srvstfunc": "",
+          "srvdofunc": "45",
+          "srvmissile": ""
+        },
+        {
+          "name": "Blade Shield",
+          "original_id": 277,
+          "private_id": 495,
+          "kind": 1,
+          "corpse_required": false,
+          "summon": "",
+          "srvstfunc": "28",
+          "srvdofunc": "54",
+          "srvmissile": ""
+        },
+        {
+          "name": "Blade Sentinel",
+          "original_id": 257,
+          "private_id": 496,
+          "kind": 0,
+          "corpse_required": false,
+          "summon": "bladecreeper",
+          "srvstfunc": "",
+          "srvdofunc": "44",
+          "srvmissile": ""
+        }
+      ],
+      "announcement": "Velisara claims the ruined cloisters; hidden blades await your blood.",
+      "first_class": 2083,
+      "class_capacity": 16,
+      "superunique_index": 119,
+      "scope": "VanillaDeluxe Dungeon Map combat floors only",
+      "model_policy": "all native palette entries, preserve cold/poison status slots; no invented recolors"
+    }
+  ],
+  "loot_top_pool": [
+    "Andariel's Visage",
+    "Arachnid Mesh",
+    "Bul Katho's Wedding Band",
+    "Crown of Ages",
+    "Darkforge Spawn",
+    "Death's Web",
+    "Fathom",
+    "Griffon's Eye",
+    "Highlord's Wrath",
+    "Mang Song's Lesson",
+    "Mara's Kaleidoscope",
+    "Nightwing's Veil",
+    "Seraph's Hymn",
+    "Shadowdancer",
+    "Steelrend",
+    "Stormlash",
+    "The Grandfather",
+    "The Stone of Jordan",
+    "Tomb Reaver",
+    "Tyrael's Might",
+    "Windforce",
+    "Wisp"
+  ]
+}
