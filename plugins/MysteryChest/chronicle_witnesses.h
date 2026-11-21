@@ -32,4 +32,6 @@ constexpr uintptr_t LoadHistoryRva=0x52fae0;
 constexpr unsigned char LoadHistoryBytes[]={72,137,92,36,8,85,86,87,65,84,65,85,65,86,65,87,72,141,108,36};
 constexpr uintptr_t GetUniqueRecordRva=0x194320;
 constexpr unsigned char GetUniqueRecordBytes[]={72,137,92,36,8,72,137,116,36,32,87,72,131,236,48,72,99,242,232,89};
+constexpr uintptr_t ReadSharedPageRva=0x41f0f0;
+constexpr unsigned char ReadSharedPageBytes[]={64,85,83,86,87,65,84,65,85,65,86,65,87,72,141,108,36,249,72,129};
 }

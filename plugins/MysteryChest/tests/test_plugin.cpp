@@ -107,11 +107,11 @@ void testInitialization() {
  for(auto& w:CubeWitnesses)std::memcpy(nativeImage.data()+w.rva,w.data,w.size);
  using namespace ChronicleNative;
  struct W{uintptr_t r;const unsigned char* b;};
- W witnesses[]={{UniqueRollRva,UniqueRollBytes},{RecordSetterRva,RecordSetterBytes},{HistoryFindRva,HistoryFindBytes},{HistoryInsertRva,HistoryInsertBytes},{HistoryStageRva,HistoryStageBytes},{DecodeItemRva,DecodeItemBytes},{CreateItemRva,CreateItemBytes},{EachPlayerRva,EachPlayerBytes},{MarkPlayerRva,MarkPlayerBytes},{GetClientRva,GetClientBytes},{SendPacketRva,SendPacketBytes},{ClearItemHistoryRva,ClearItemHistoryBytes},{ReadSavedItemsRva,ReadSavedItemsBytes},{LoadHistoryRva,LoadHistoryBytes},{GetUniqueRecordRva,GetUniqueRecordBytes}};
+ W witnesses[]={{UniqueRollRva,UniqueRollBytes},{RecordSetterRva,RecordSetterBytes},{HistoryFindRva,HistoryFindBytes},{HistoryInsertRva,HistoryInsertBytes},{HistoryStageRva,HistoryStageBytes},{DecodeItemRva,DecodeItemBytes},{CreateItemRva,CreateItemBytes},{EachPlayerRva,EachPlayerBytes},{MarkPlayerRva,MarkPlayerBytes},{GetClientRva,GetClientBytes},{SendPacketRva,SendPacketBytes},{ClearItemHistoryRva,ClearItemHistoryBytes},{ReadSavedItemsRva,ReadSavedItemsBytes},{ReadSharedPageRva,ReadSharedPageBytes},{LoadHistoryRva,LoadHistoryBytes},{GetUniqueRecordRva,GetUniqueRecordBytes}};
  for(auto w:witnesses)std::memcpy(nativeImage.data()+w.r,w.b,20);
- assert(D2RLoaderLoadPlugin(&ctx));assert(hookCount==11&&gameListeners==2&&loaded.callback);
+ assert(D2RLoaderLoadPlugin(&ctx));assert(hookCount==12&&gameListeners==2&&loaded.callback);
  // Wrong build is rejected before hooks are installed.
- ctx.buildName="other";assert(!D2RLoaderLoadPlugin(&ctx));assert(hookCount==11);ctx.buildName="95032";
+ ctx.buildName="other";assert(!D2RLoaderLoadPlugin(&ctx));assert(hookCount==12);ctx.buildName="95032";
  ChronicleIntegration::TablesLoaded(&ctx,nullptr,nullptr);assert(!ChronicleIntegration::Ready);
  for(unsigned i=0;i<UniqueCount;i++){ChronicleFix::put<uint16_t>(nativeU.data()+i*0x15c,uint16_t(i));ChronicleFix::put<uint32_t>(nativeU.data()+i*0x15c+0x28,UniqueCodes[i]);}
  nativeLayout=true;loaded.callback(&ctx,nullptr,loaded.userData);assert(ChronicleIntegration::Ready);

@@ -1,4 +1,4 @@
-# Mystery Chest 2.1.0 — Chronicle reconciliation
+# Mystery Chest 2.1.1 — Chronicle reconciliation
 
 Updates the existing r3ni-mystery-chest module. No second plugin, diagnostic plugin, save replacement, new item row, TreasureClass edit, or change to reward-slot weights.
 
@@ -41,3 +41,19 @@ g++ -std=c++20 -O2 -Itests/stubs -ISDK/include tests/test_plugin.cpp -o host_tes
 A separate offline Unicorn test ran the compiled integration against captured build-95032 native x64 Chronicle and unique-generation code. It accepted all 802 supplied saved Chronicle records, recovered Arctic Mitts with its original history, exercised 1143 interchangeable unique definitions, verified an unchanged random roll/weights, owner-scoped save recovery, mercenary recovery, native client packets and new cube reward registration. Windows services and selected surrounding engine services were mocked explicitly. No live game, UI rendering, real hook installer, or multiplayer session was run here. The user's live check remains necessary.
 
 User save data and game binaries are excluded from the source checkpoint.
+
+## 2.1.1 shared-stash regression
+
+2.1.0 scoped the character/mercenary ReadItemsByVersion entry point (41f0b0), but the actual shared-stash archive reader at 530590 calls the separate shared-page reader (41f0f0) directly. Its decoded items therefore had no restoring owner/evidence scope. 2.1.1 wraps that shared-page entry point using the same owner-scoped observer. It forwards all seven arguments and the return value unchanged, changes no item/save bytes, and preserves the existing ready-time update path. This new hook is guarded by its build-95032 expected bytes.
+
+The regression executes the real native shared-stash archive reader over 20 synthetic pages. With the old unscoped path, Arctic Mitts does not recover; with the production shared-page wrapper it does recover with the original source/date. Item deserialization underneath that page wrapper is mocked explicitly. The test does not claim a live-game validation.
+
+Optional native emulation test, from this source directory (a legally obtained unpacked build-95032 text capture is required and not included):
+
+```sh
+python -m pip install pefile capstone unicorn
+python -m ziglang c++ -target x86_64-windows-gnu -std=c++20 -O2 -shared -fno-exceptions -fno-rtti -ISDK/include tests/native_exports.cpp -o tests/native_tests.dll
+python tests/test_native.py --native-text /absolute/path/D2RLoader-95032-text.bin
+```
+
+The default native test uses synthetic items and empty initial Chronicle maps. An optional --audit JSON input can check a separately supplied offline audit without embedding it in this repository.

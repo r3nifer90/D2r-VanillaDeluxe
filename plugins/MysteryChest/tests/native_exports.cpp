@@ -42,3 +42,18 @@ TEST_EXPORT unsigned test_packet(void* bytes,unsigned player,unsigned id,unsigne
  Packet packet;packet.player=player;packet.item=0xffffffff;packet.kind=1;packet.record=uint16_t(id);packet.source=source;packet.minutes=time;
  std::memcpy(bytes,&packet,sizeof(packet));return sizeof(packet);
 }
+
+static uint64_t __fastcall fake_shared(uintptr_t,uintptr_t,uintptr_t,uintptr_t bytes,uintptr_t count,uintptr_t used,uintptr_t page) {
+ void* item=ChronicleFix::get<void*>(reinterpret_cast<void*>(bytes));
+ Decode(item,nullptr,1,0,nullptr,105,nullptr);
+ ChronicleFix::put<uint32_t>(reinterpret_cast<void*>(used),uint32_t(count));
+ ChronicleFix::put<uintptr_t>(reinterpret_cast<void*>(page),0x12340000);
+ return 0;
+}
+TEST_EXPORT uint64_t test_shared_hook(uintptr_t a,uintptr_t b,uintptr_t c,uintptr_t d,uintptr_t e,uintptr_t f,uintptr_t g) {
+ OriginalDecode=&fake_decode;OriginalReadShared=&fake_shared;return ReadShared(a,b,c,d,e,f,g);
+}
+
+TEST_EXPORT uint64_t test_shared_unscoped(uintptr_t a,uintptr_t b,uintptr_t c,uintptr_t d,uintptr_t e,uintptr_t f,uintptr_t g) {
+ OriginalDecode=&fake_decode;return fake_shared(a,b,c,d,e,f,g);
+}

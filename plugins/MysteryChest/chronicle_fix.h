@@ -35,7 +35,7 @@ using GetUniqueRecordFn=void*(__fastcall*)(uint8_t,int);
 inline UniqueFn OriginalUnique{};inline SetFn OriginalSet{};
 inline FindFn OriginalFind{};inline InsertFn OriginalInsert{};
 inline StageFn OriginalStage{};inline DecodeFn OriginalDecode{};inline CreateFn OriginalCreate{};
-inline ReadSavedFn OriginalReadSaved{};inline LoadHistoryFn OriginalLoadHistory{};
+inline ReadSavedFn OriginalReadSaved{};inline ReadSavedFn OriginalReadShared{};inline LoadHistoryFn OriginalLoadHistory{};
 inline GetUniqueRecordFn OriginalGetUniqueRecord{};
 inline thread_local unsigned RestoreDepth{};
 inline std::atomic<uintptr_t> CurrentGame{0};
@@ -123,7 +123,7 @@ inline bool __fastcall Stage(void* player,const void* record) noexcept {
  // record, even though the original duplicate check reports no insertion.
  return true;
 }
-inline uint64_t __fastcall ReadSaved(uintptr_t a,uintptr_t player,uintptr_t c,uintptr_t d,uintptr_t e,uintptr_t f,uintptr_t g) noexcept {
+inline uint64_t ReadOwnedItems(ReadSavedFn original,uintptr_t a,uintptr_t player,uintptr_t c,uintptr_t d,uintptr_t e,uintptr_t f,uintptr_t g) noexcept {
  uint32_t priorOwner=RestoreOwner,type{},owner{};
  if(Read(player,type)) {
   if(type==0&&Read(player+8,owner)) {
@@ -137,13 +137,21 @@ inline uint64_t __fastcall ReadSaved(uintptr_t a,uintptr_t player,uintptr_t c,ui
   }
  }
  ++RestoreDepth;
- uint64_t result=OriginalReadSaved(a,player,c,d,e,f,g);
+ uint64_t result=original(a,player,c,d,e,f,g);
  --RestoreDepth;
  RestoreOwner=priorOwner;
  if(Ready) {unsigned type{};uint8_t bank{};
   if(Read(player,type)&&type==0&&Read(a+0x106,bank)&&bank==3)CurrentGame.store(a);
  }
  return result;
+}
+inline uint64_t __fastcall ReadSaved(uintptr_t a,uintptr_t player,uintptr_t c,uintptr_t d,uintptr_t e,uintptr_t f,uintptr_t g) noexcept {
+ return ReadOwnedItems(OriginalReadSaved,a,player,c,d,e,f,g);
+}
+inline uint64_t __fastcall ReadShared(uintptr_t game,uintptr_t player,uintptr_t version,uintptr_t bytes,uintptr_t count,uintptr_t used,uintptr_t page) noexcept {
+ // Shared pages are restored through 41f0f0, not ReadItemsByVersion (41f0b0).
+ // Bind this decode scope to the explicit restoring player on every page.
+ return ReadOwnedItems(OriginalReadShared,game,player,version,bytes,count,used,page);
 }
 inline int __fastcall Load(void* a,void* archive,void* player) noexcept {
  int result=OriginalLoadHistory(a,archive,player);
@@ -274,13 +282,14 @@ inline bool Install(const D2RL::PluginContext* ctx,const D2RL::DataTableService*
  const Witness witnesses[]={{UniqueRollRva,UniqueRollBytes},{RecordSetterRva,RecordSetterBytes},{HistoryFindRva,HistoryFindBytes},{HistoryInsertRva,HistoryInsertBytes},
   {HistoryStageRva,HistoryStageBytes},{DecodeItemRva,DecodeItemBytes},{CreateItemRva,CreateItemBytes},{EachPlayerRva,EachPlayerBytes},{MarkPlayerRva,MarkPlayerBytes},
   {GetClientRva,GetClientBytes},{SendPacketRva,SendPacketBytes},{ClearItemHistoryRva,ClearItemHistoryBytes},
-  {ReadSavedItemsRva,ReadSavedItemsBytes},{LoadHistoryRva,LoadHistoryBytes},{GetUniqueRecordRva,GetUniqueRecordBytes}};
+  {ReadSavedItemsRva,ReadSavedItemsBytes},{ReadSharedPageRva,ReadSharedPageBytes},{LoadHistoryRva,LoadHistoryBytes},{GetUniqueRecordRva,GetUniqueRecordBytes}};
  for(auto w:witnesses)if(!ctx->CheckExpectedBytes(w.rva,w.bytes,20))return false;
  if(!Hook(UniqueRollRva,UniqueRollBytes,&Unique,&OriginalUnique)||!Hook(RecordSetterRva,RecordSetterBytes,&Set,&OriginalSet)||
     !Hook(HistoryFindRva,HistoryFindBytes,&Find,&OriginalFind)||!Hook(HistoryInsertRva,HistoryInsertBytes,&Insert,&OriginalInsert)||
     !Hook(HistoryStageRva,HistoryStageBytes,&Stage,&OriginalStage)||!Hook(DecodeItemRva,DecodeItemBytes,&Decode,&OriginalDecode)||
     !Hook(CreateItemRva,CreateItemBytes,&Create,&OriginalCreate)||
     !Hook(ReadSavedItemsRva,ReadSavedItemsBytes,&ReadSaved,&OriginalReadSaved)||
+    !Hook(ReadSharedPageRva,ReadSharedPageBytes,&ReadShared,&OriginalReadShared)||
     !Hook(LoadHistoryRva,LoadHistoryBytes,&Load,&OriginalLoadHistory)||
     !Hook(GetUniqueRecordRva,GetUniqueRecordBytes,&GetUniqueRecord,&OriginalGetUniqueRecord))return false;
  D2RL::Lifecycle::DataTablesLoadedListener listener{sizeof(listener),0,&TablesLoaded,nullptr};D2RL::Lifecycle::ListenerHandle handle{};
