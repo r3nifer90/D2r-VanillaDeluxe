@@ -44,6 +44,7 @@ write(allocator,'<Q',vtable)
 allocstub=regstub(nextstub,'native_alloc');nextstub+=16;freestub=regstub(nextstub,'native_free');nextstub+=16
 write(vtable+8,'<Q',allocstub);write(vtable+0x20,'<Q',freestub)
 for r,name in [(0x12063c0,'native_allocator'),(0x300a90,'native_bank'),(0x12d1150,'native_cookie'),(0x34b9d0,'native_unit_type'),(0x34a500,'native_item_data'),(0x12d3660,'memcpy')]:regstub(NB+r,name)
+loot_frame=False;loot_random=0
 trace=[];calls=0;rng_calls=[];applied_records=[];sent_packets=[];cleared=[]
 NOW=int(datetime.datetime(2026,11,21,2,tzinfo=datetime.timezone.utc).timestamp()/60)
 def leave(value=0):
@@ -57,6 +58,11 @@ def callback(uc,at,size,_):
  if at not in api:return
  name=api[at];a=uc.reg_read(UC_X86_REG_RCX);b=uc.reg_read(UC_X86_REG_RDX);c=uc.reg_read(UC_X86_REG_R8);d=uc.reg_read(UC_X86_REG_R9)
  if name in ['AcquireSRWLockExclusive','AcquireSRWLockShared','ReleaseSRWLockExclusive','ReleaseSRWLockShared','native_free','native_cookie']:leave();return
+ if name in ['RtlCaptureStackBackTrace','CaptureStackBackTrace']:
+  if loot_frame:write(c,'<Q',NB+0x440aaa)
+  leave(1 if loot_frame else 0);return
+ if name=='BCryptGenRandom':
+  write(b,'<I',loot_random);leave(0);return
  if name=='GetCurrentProcess':leave(-1);return
  if name=='GetSystemTimeAsFileTime':write(a,'<Q',NOW*600000000+116444736000000000);leave();return
  if name=='ReadProcessMemory':
@@ -212,6 +218,34 @@ for record in mapping:
  assert applied_records[-1]==target,(old,target,applied_records[-1])
  physical_cases+=1
 print('PASS: real native generation canonicalized',physical_cases,'interchangeable definitions')
+# Execute native forced unique paths with production suppression before any property application.
+import re as _re
+selected=[int(x) for x in _re.search(r'Records\[\] = \{([^}]+)',(root/'selected_loot.h').read_text()).group(1).split(',')]
+loot_frame=True
+for id in selected:
+ target=call('test_physical',id)
+ for record in [id,target]:
+  row=rows+record*0x15c;write(row,'<H',record);write(row+0x24,'<H',100);write(row+0x28,'<I',code);write(row+0x2c,'<B',11)
+ write(spec+0x3c,'<I',1);write(spec+0x50,'<I',id)
+ write(itemdata+0x34,'<i',-1)
+ before_properties=len(applied_records);loot_random=0
+ assert call('test_unique',game,item,spec)==0,id
+ assert len(applied_records)==before_properties and read(itemdata+0x34,'<i')[0]==-1,id
+ loot_random=1;assert call('test_unique',game,item,spec)==1,id
+ assert applied_records[-1]==target,id
+loot_frame=False
+print('PASS: actual native forced-unique generation suppresses all',len(selected),'selected identities before properties and accepts the other half')
+# The same gate is reached after ordinary weighted unique selection.
+u.mem_write(rows,b'\0'*(2149*0x15c))
+id=271;row=rows+id*0x15c
+write(row,'<H',id);write(row+0x24,'<H',100);write(row+0x28,'<I',code);write(row+0x2c,'<B',3);write(row+0x34,'<I',5);write(row+0x38,'<H',1);write(row+0x90,'<i',-1)
+write(spec+0x3c,'<I',0);write(spec+0x50,'<I',0)
+loot_frame=True;loot_random=0;write(itemdata+0x34,'<i',-1);before_properties=len(applied_records)
+assert call('test_unique',game,item,spec)==0
+assert len(applied_records)==before_properties and read(itemdata+0x34,'<i')[0]==-1
+loot_random=1;assert call('test_unique',game,item,spec)==1 and applied_records[-1]==271
+loot_frame=False
+print('PASS: actual weighted native selection also suppresses the selected item without a unique reroll or property side effects')
 # Restore owned items under their player, then synchronize only after ready.
 for x in audit['named']:
  r=x['record'];kind=int(x['category']=='unique')
@@ -248,4 +282,4 @@ ptr=call('test_find',history,1,unused);assert ptr and read(ptr,'<IHHI')==(unused
 assert len(sent_packets)==before_packets+1 and cleared==[item]
 assert struct.unpack('<BBIIH BII',sent_packets[-1])==(0x87,0,777,123,unused,1,NOW,2231)
 print('PASS: new cube reward is registered through native Chronicle functions; unrelated network items are ignored')
-(root/'tests/native-test-result.json').write_text(json.dumps({'native_saved_records':sum(len(x) for x in audit['chronicle'].values()),'canonical_counts':{k:len(v) for k,v in expected.items()},'arctic_mitts':True,'no_archive_abort':True,'saved_item_bytes_unchanged':True,'canonical_generation':True,'native_forced_alias_cases':physical_cases,'owned_eligible_entries_verified':len(owned),'source_repeat_rule':True,'native_random_unique_roll':True,'unchanged_rng_calls_and_weights':rng_calls==[4],'packet_layout':True,'ready_time_snapshot':True,'new_cube_reward_registration':True,'unrelated_network_items_ignored':True,'emulated_instructions':calls,'real_shared_archive_reader_regression':True,'live_game_test':False},indent=2))
+(root/'tests/native-test-result.json').write_text(json.dumps({'native_saved_records':sum(len(x) for x in audit['chronicle'].values()),'canonical_counts':{k:len(v) for k,v in expected.items()},'arctic_mitts':True,'no_archive_abort':True,'saved_item_bytes_unchanged':True,'canonical_generation':True,'native_forced_alias_cases':physical_cases,'owned_eligible_entries_verified':len(owned),'source_repeat_rule':True,'native_random_unique_roll':True,'unchanged_initial_rng_and_weights':rng_calls[:1]==[4], 'selected_loot_forced_cases':len(selected), 'selected_loot_weighted':True,'packet_layout':True,'ready_time_snapshot':True,'new_cube_reward_registration':True,'unrelated_network_items_ignored':True,'emulated_instructions':calls,'real_shared_archive_reader_regression':True,'live_game_test':False},indent=2))
