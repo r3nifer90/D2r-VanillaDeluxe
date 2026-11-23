@@ -22,3 +22,6 @@ inline bool ReadProcessMemory(void*,const void* p,void* out,size_t n,SIZE_T* use
 inline void GetSystemTimeAsFileTime(FILETIME* t){uint64_t n=116444736000000000ULL+29920000ULL*600000000ULL;t->dwLowDateTime=uint32_t(n);t->dwHighDateTime=uint32_t(n>>32);}
 inline void AcquireSRWLockShared(SRWLOCK* x){x->lock();}
 inline void ReleaseSRWLockShared(SRWLOCK* x){x->unlock();}
+
+inline void* mockLootFrame=nullptr;
+inline unsigned short CaptureStackBackTrace(unsigned,unsigned count,void** out,unsigned long*) {if(mockLootFrame&&count){out[0]=mockLootFrame;return 1;}return 0;}
