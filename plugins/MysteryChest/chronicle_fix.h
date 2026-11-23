@@ -1,10 +1,12 @@
 #pragma once
 #include "chronicle_records.h"
 #include "chronicle_witnesses.h"
+#include "selected_loot.h"
 #include <D2RLPlugin/context.h>
 #include <D2RLPlugin/data_tables.h>
 #include <D2RLPlugin/lifecycle_events.h>
 #include <windows.h>
+#include <bcrypt.h>
 #include <cstring>
 #include <atomic>
 
@@ -41,6 +43,7 @@ inline thread_local unsigned RestoreDepth{};
 inline std::atomic<uintptr_t> CurrentGame{0};
 inline thread_local void* UniqueItem{};
 inline thread_local int UniqueSource=-1;
+inline thread_local bool LootScope=false,LootDecisionMade=false;
 alignas(16) inline thread_local uint8_t GenerationRecord[0x15c];
 struct Capture {void* game{};void* item{};};
 inline thread_local Capture* ActiveCapture{};
@@ -160,9 +163,10 @@ inline int __fastcall Load(void* a,void* archive,void* player) noexcept {
 }
 inline int __fastcall Unique(void* game,void* item,void* specification) noexcept {
  uint8_t bank{};bool active=Ready&&Read(reinterpret_cast<uintptr_t>(game)+0x106,bank)&&bank==3;
- void* prior=UniqueItem;int source=UniqueSource;if(active){UniqueItem=item;UniqueSource=-1;}
+ void* prior=UniqueItem;int source=UniqueSource;bool scope=LootScope,decided=LootDecisionMade;
+ if(active){UniqueItem=item;UniqueSource=-1;LootScope=true;LootDecisionMade=false;}
  int result=OriginalUnique(game,item,specification);
- UniqueItem=prior;UniqueSource=source;return result;
+ UniqueItem=prior;UniqueSource=source;LootScope=scope;LootDecisionMade=decided;return result;
 }
 inline void __fastcall Set(void* item,int id) noexcept {
  // This runs between native selection and native property application. Saved
@@ -174,6 +178,22 @@ inline void __fastcall Set(void* item,int id) noexcept {
 }
 inline void* __fastcall GetUniqueRecord(uint8_t bank,int id) noexcept {
  void* row=OriginalGetUniqueRecord(bank,id);
+ if(Ready&&row&&bank==3&&UniqueItem&&LootScope&&!LootDecisionMade){
+  // This getter is first reached after native weighted/explicit unique selection
+  // and before the record setter, properties, history and game unique-use bit.
+  // Both native caller branches explicitly return ordinary generation failure
+  // for a null row; the native caller then uses its usual failed-unique fallback.
+  LootDecisionMade=true;
+  if(!ActiveCapture&&SelectedLoot::targeted(id)&&Context){
+   void* frames[48]{};
+   const unsigned count=CaptureStackBackTrace(0,48,frames,nullptr);
+   if(SelectedLoot::nativeLootStack(frames,count,Context->exeBase)){
+    uint32_t random{};
+    const bool ok=BCryptGenRandom(nullptr,reinterpret_cast<PUCHAR>(&random),sizeof(random),BCRYPT_USE_SYSTEM_PREFERRED_RNG)==0;
+    if(SelectedLoot::reject(true,false,true,id,ok,random))return nullptr;
+   }
+  }
+ }
  if(!Ready||!row||bank!=3||!UniqueItem||UniqueSource<0||id!=PhysicalCanonical[UniqueSource])return row;
  void* selected=OriginalGetUniqueRecord(bank,UniqueSource);if(!selected)return row;
  std::memcpy(GenerationRecord,row,sizeof(GenerationRecord));
