@@ -185,7 +185,7 @@ void __cdecl Gameplay(const PluginContext*,const Lifecycle::GameplayEvent* e,voi
 template<class T>bool Query(const T*& service,uint32_t size) noexcept {
  return C->QueryService(&service)==ServiceQueryResult::Success&&service&&service->serviceSize>=size&&service->serviceVersion==T::AbiVersion;
 }
-const PluginInfo Info{sizeof(PluginInfo),4,"r3ni-mystery-chest","Mystery Chest","2.1.1-chronicle","r3ni","Equal-weight original item rewards; isolated chest exchange",PluginFlags::ModScopedOnly|PluginFlags::Shared|PluginFlags::NativeHooks};
+const PluginInfo Info{sizeof(PluginInfo),4,"r3ni-mystery-chest","Mystery Chest","2.1.2-selected-loot","r3ni","Equal-weight original item rewards; isolated chest exchange",PluginFlags::ModScopedOnly|PluginFlags::Shared|PluginFlags::NativeHooks};
 }
 D2RL_PLUGIN_EXPORT const D2RL::PluginInfo* __cdecl D2RLoaderGetPluginInfo() noexcept{return &Info;}
 D2RL_PLUGIN_EXPORT bool __cdecl D2RLoaderLoadPlugin(const D2RL::PluginContext* ctx) noexcept {
@@ -202,7 +202,7 @@ D2RL_PLUGIN_EXPORT bool __cdecl D2RLoaderLoadPlugin(const D2RL::PluginContext* c
  if(Life->registerGameplayEventListener(C,&leave,&leaveHandle)!=Lifecycle::Result::Success)return false;
  if(!ChronicleIntegration::Install(C,Tables,Life))return false;
  if(!C->InstallInlineHook(0x2cd720,TransmuteWitness,sizeof(TransmuteWitness),TransmuteUi,&OriginalTransmute))return false;
- C->LogInfo("MysteryChest 2.1.1-chronicle: 1390 equal-weight original rewards; Cube Transmute; transactional delivery inside cube.");return true;
+ C->LogInfo("MysteryChest 2.1.2-selected-loot: 1390 equal-weight original rewards; Cube Transmute; transactional delivery inside cube.");return true;
 }
 D2RL_PLUGIN_EXPORT void __cdecl D2RLoaderUnloadPlugin() noexcept{
  AcquireSRWLockExclusive(&JobLock);auto* job=Jobs;Jobs=nullptr;ReleaseSRWLockExclusive(&JobLock);
