@@ -1,4 +1,4 @@
-# Mystery Chest 2.1.1 — Chronicle reconciliation
+# Mystery Chest 2.1.2 — Chronicle reconciliation
 
 Updates the existing r3ni-mystery-chest module. No second plugin, diagnostic plugin, save replacement, new item row, TreasureClass edit, or change to reward-slot weights.
 
@@ -57,3 +57,13 @@ python tests/test_native.py --native-text /absolute/path/D2RLoader-95032-text.bi
 ```
 
 The default native test uses synthetic items and empty initial Chronicle maps. An optional --audit JSON input can check a separately supplied offline audit without embedding it in this repository.
+
+## 2.1.2 — selected world-loot rarity
+
+The supplied list contains 44 logical uniques, covering 102 canonical/legacy physical record IDs. The compile-time record selector is in `selected_loot.h`. After native unique selection, the existing unique-record getter hook applies one independent unbiased 50% retention test, before native record assignment, properties and the game's unique-use flag. A rejected lookup follows the existing native failed-unique path; it never creates an alternative unique or an item row. Native loot stack recognition is scoped to build 95032's treasure-class executor range. Inventory restoration, vendors and cube generation are outside that executor. Mystery Chest's active transactional capture unconditionally bypasses the filter, preserving all 1390 original reward slots and their weights. Only the Rotw mod bank is affected. Existing Chronicle/canonical hooks and the same plugin ID are retained; no new hook entry or new module is introduced.
+
+Randomness uses BCryptGenRandom and fails open. There is no diagnostic logging or diagnostic tool embedded in this module. Runtime code mutates neither TXT/BIN tables nor saved items. A stack capture is performed only for a freshly selected target unique; live stack unwinding and a multiplayer session still require an in-game test.
+
+Tests cover both outcomes for all 102 physical identities, Mystery Chest/non-loot/non-target exclusions, entropy failure, scope restoration and 1,000,000 deterministic parity draws. The offline native emulator executes both the forced and weighted build-95032 unique generator with the compiled filter, including no-property/no-record-change failure and successful canonical property application. Windows stack walking and entropy are mocked explicitly in these offline tests. Native Chronicle regression and all 1390 cube reward slots also pass. These are not live-game validations.
+
+Build (install ziglang 0.13.0): `python build.py`. Native fixture build requires `-lbcrypt`. Host unit tests require `-include tests/stubs/windows.h` when compiling the standalone selected-loot test.
